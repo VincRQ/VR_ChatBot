@@ -1,0 +1,140 @@
+/* Aqui se encuentran los estilos de la pagina para mantener mas ordenado el index"
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* Header */
+.header {
+    width: 100%;
+    background-color: #16213e; 
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8d90f; 
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 80px; 
+    background-color: #ffffff; 
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: #333;
+}
+
+/* Chat Header */
+.chat-header {
+    background-color: #f8d90f; 
+    color: #16213e; 
+    text-align: center;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Chat Box */
+#chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+    background: #f4f4f4; 
+}
+
+/* Message Styles */
+.message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.message.user {
+    background-color: #1a1a2e; 
+    color: white;
+    align-self: flex-end;
+}
+
+.message.ai {
+    background-color: #f8d90f; 
+    color: #16213e; 
+    align-self: flex-start;
+}
+
+.message.loading {
+    font-style: italic;
+    color: gray;
+    text-align: center;
+}
+
+/* Form */
+form {
+    display: flex;
+    background-color: #16213e; 
+    padding: 10px;
+}
+
+form input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #f8d90f; 
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f4f4f4; 
+    color: #1a1a2e; 
+}
+
+form button {
+    padding: 10px 20px;
+    background-color: #f8d90f; 
+    color: #16213e; 
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #f7c000; 
+}
+
+/* Scrollbar */
+#chat-box::-webkit-scrollbar {
+    width: 5px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+    background-color: #f8d90f; 
+    border-radius: 5px;
+}

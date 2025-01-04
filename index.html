@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat con OpenAI</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Hecho por Vicente Rivas</h1>
+    </div>
+    <div class="container">
+        <div class="chat-header">
+            <h2>ChatBot</h2>
+        </div>
+        <div id="chat-box">
+            <!-- Mensajes aparecerán aquí -->
+        </div>
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="Escribe tu mensaje..." autocomplete="off" required />
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        const chatForm = document.getElementById("chat-form");
+        const userInput = document.getElementById("user-input");
+        const chatBox = document.getElementById("chat-box");
+
+        function addMessage(content, sender) {
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${sender}`;
+            messageDiv.textContent = content;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function initChat() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ message: "init" }),
+                });
+
+                const data = await response.json();
+                if (data.response) {
+                    addMessage(data.response, "ai");
+                } else {
+                    alert("Error: " + data.error);
+                }
+            } catch (error) {
+                alert("Error al conectar con el servidor.");
+            }
+        }
+
+        chatForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            
+            const message = userInput.value.trim();
+            if (!message) {
+                alert("Por favor, escribe un mensaje válido.");
+                return;
+            }
+
+            addMessage(message, "user");
+
+            const loadingMessage = document.createElement("div");
+            loadingMessage.className = "message loading";
+            loadingMessage.textContent = "Cargando...";
+            chatBox.appendChild(loadingMessage);
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ message }),
+                });
+
+                const data = await response.json();
+                chatBox.removeChild(loadingMessage);
+
+                if (data.response) {
+                    addMessage(data.response, "ai");
+                } else {
+                    alert("Error: " + data.error);
+                }
+            } catch (error) {
+                alert("Error al conectar con el servidor.");
+            }
+
+            userInput.value = "";
+        });
+
+        window.onload = initChat;
+    </script>
+</body>
+</html>
